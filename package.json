@@ -1,0 +1,17 @@
+{
+  "name": "node-fastify-api-boilerplate",
+  "version": "1.0.0",
+  "description": "Nodejs API boilerplate using Fastify, MongoDB, Docker, and Postman Mock",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Tarush Arora",
+  "license": "ISC",
+  "dependencies": {
+    "fastify": "^1.13.2",
+    "fastify-autoload": "^0.5.1",
+    "mongoose": "^5.4.0",
+    "uuid": "^3.3.2"
+  }
+}
