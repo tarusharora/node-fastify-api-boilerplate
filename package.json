@@ -12,6 +12,8 @@
     "fastify": "^1.13.2",
     "fastify-autoload": "^0.5.1",
     "mongoose": "^5.4.0",
+    "request-promise-native": "^1.0.7",
+    "url-join": "^4.0.0",
     "uuid": "^3.3.2"
   }
 }
