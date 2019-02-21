@@ -1,4 +1,4 @@
-const { getUsers } = require('../adaptors/userAdaptor');
+const { getUsers, createUser } = require('../adaptors/userAdaptor');
 
 const getUsersCtrl = async (req, res) => {
     try {
@@ -11,6 +11,18 @@ const getUsersCtrl = async (req, res) => {
     }
 }
 
+const createUsersCtrl = async (req, res) => {
+    try {
+        const body = req.body;
+        const user = await createUser({body});
+        res.send(user);
+    }
+    catch (err) {
+        throw err;
+    }
+}
+
 module.exports = {
-    getUsersCtrl
+    getUsersCtrl,
+    createUsersCtrl
 }
