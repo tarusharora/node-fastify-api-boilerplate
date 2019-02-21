@@ -1,6 +1,6 @@
 {
   "name": "node-fastify-api-boilerplate",
-  "version": "1.1.0",
+  "version": "1.2.0",
   "description": "Nodejs API boilerplate using Fastify, MongoDB, Docker, and Postman Mock",
   "main": "app.js",
   "scripts": {
