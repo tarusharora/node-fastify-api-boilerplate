@@ -3,6 +3,13 @@ const nconf = require('nconf');
 const User = require('../models/User');
 const { SignUpResponse } = require('../models/Auth');
 const { INVALID_PASSWORD, USER_DOESNT_EXISTS, USER_EXISTS } = require('../models/Errors');
+const { VERIFICATION_EMAIL_SENT } = require('../models/Messages');
+const { getRandomBytes } = require('../utils/crypto');
+const EmailVerifyToken = require('../models/EmailVerifyToken');
+const { generateEmailVerifyEmail } = require('../models/EmailTemplate');
+const { sendEmail } = require('../utils/aws-ses');
+
+const isEmailVerificationEnabled = nconf.get('app.isEmailVerificationEnabled');
 
 const postLogin = async (req, res) => {
     const { email, password } = req.body;
@@ -38,8 +45,27 @@ const postSignup = async (req, res) => {
         });
         const newUser = await user.save();
         const { id, email: userEmail } = newUser;
-        const token = await res.jwtSign({ id }, { expiresIn: nconf.get('app.userJwtExpiry') });
-        res.send(new SignUpResponse({ email: userEmail, token, id }));
+        if (isEmailVerificationEnabled) {
+            const token = getRandomBytes(16);
+            const emailVerifyToken = new EmailVerifyToken({
+              userId: id,
+              token,
+            });
+            await emailVerifyToken.save();
+            const {
+              mailContent, recipient, sender, subject,
+            } = await generateEmailVerifyEmail({ email, token, userName: 'TBD' });
+            await sendEmail({
+              from: sender,
+              to: recipient,
+              message: mailContent,
+              subject,
+            });
+            res.send(new SignUpResponse({ email: userEmail, message: VERIFICATION_EMAIL_SENT, id }));
+          } else {
+            const token = await res.jwtSign({ id }, { expiresIn: nconf.get('app.userJwtExpiry') });
+            res.send(new SignUpResponse({ email: userEmail, token, id }));
+          }
     } catch (error) {
         res.send(error);
     }
