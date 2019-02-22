@@ -16,6 +16,7 @@
     "lodash": "^4.17.11",
     "mongoose": "^5.4.0",
     "nconf": "^0.10.0",
+    "request": "^2.88.0",
     "request-promise-native": "^1.0.7",
     "url-join": "^4.0.0",
     "uuid": "^3.3.2"
