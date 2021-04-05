@@ -7,3 +7,6 @@ https://medium.com/@tarusharora/how-to-build-a-node-js-api-with-fastify-mongodb-
 
 #### Part 2:
 https://medium.com/@tarusharora/how-to-build-a-node-js-api-with-fastify-mongodb-docker-and-postman-part-2-cf2d8092aa71
+
+
+NEW PUSH
